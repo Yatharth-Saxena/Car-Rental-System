@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Car Rental System - Welcome</title>
+<style>
+  /* Reset */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: rgba(0,0,0,0.6);
+    padding: 20px 40px;
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    user-select: none;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 20px;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3.6rem;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 8px rgba(29,185,84,0.9);
+  }
+  h2 {
+    font-weight: 600;
+    margin-bottom: 24px;
+    font-size: 1.5rem;
+    max-width: 720px;
+    line-height: 1.4;
+  }
+  .btn-primary {
+    background-color: #1db954;
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 16px 48px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    box-shadow: 0 6px 12px rgba(29,185,84,0.5);
+  }
+  .btn-primary:hover,
+  .btn-primary:focus {
+    background-color: #1ed760;
+    outline: none;
+  }
+  section.features {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+  }
+  .feature {
+    background: rgba(255 255 255 / 0.1);
+    border-radius: 16px;
+    padding: 24px 32px;
+    width: 280px;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    transition: transform 0.3s ease;
+  }
+  .feature:hover {
+    transform: translateY(-10px);
+  }
+  .feature h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1db954;
+  }
+  .feature p {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #ddd;
+  }
+  footer {
+    text-align: center;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    background: rgba(0,0,0,0.6);
+    user-select: none;
+  }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.8rem;
+    }
+    section.features {
+      flex-direction: column;
+      align-items: center;
+    }
+    .feature {
+      width: 90%;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  Car Rental System
+</header>
+<main>
+  <h1>Rent Your Perfect Ride</h1>
+  <h2>Browse vehicles, book your rental, and drive away with ease. Experience hassle-free car rental with secure payments and a user-friendly platform.</h2>
+  <button class="btn-primary" onclick="location.href='car-rental-system.html'">Get Started</button>
+
+  <section class="features" aria-label="Features">
+    <article class="feature" tabindex="0">
+      <h3>User Registration & Login</h3>
+      <p>Securely create and manage your account to keep track of your bookings and preferences.</p>
+    </article>
+
+    <article class="feature" tabindex="0">
+      <h3>Vehicle Catalog</h3>
+      <p>Explore a wide range of vehicles with detailed information and real-time availability.</p>
+    </article>
+
+    <article class="feature" tabindex="0">
+      <h3>Easy Booking & Payment</h3>
+      <p>Select your rental dates, reserve your vehicle, and choose from multiple payment options.</p>
+    </article>
+
+    <article class="feature" tabindex="0">
+      <h3>Rental History & Receipts</h3>
+      <p>Keep records of your rentals and download invoices anytime for your convenience.</p>
+    </article>
+  </section>
+</main>
+<footer>
+  &copy; 2024 Car Rental System. All rights reserved.
+</footer>
+</body>
+</html>
+
