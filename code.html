@@ -1,156 +1,1392 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Car Rental System - Welcome</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Car Rental Service</title>
 <style>
-  /* Reset */
-  *, *::before, *::after {
+  /* Reset & base */
+  * {
     box-sizing: border-box;
   }
-  body {
-    margin: 0;
+  body, html {
+    margin: 0; padding: 0; height: 100%;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
   }
-  header {
-    background: rgba(0,0,0,0.6);
-    padding: 20px 40px;
-    font-weight: 700;
-    font-size: 1.8rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: center;
-    user-select: none;
+  body::before {
+    content: "";
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.7);
+    z-index: -1;
   }
-  main {
-    flex: 1;
+
+  /* Navbar */
+  nav {
+    background: rgba(0,0,0,0.85);
+    padding: 15px 30px;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-weight: bold;
+  }
+  nav .logo {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #ffa500;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  nav ul li:hover {
+    color: #e67e22;
+  }
+  #logoutBtn {
+    background: #cc3333;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background 0.3s ease;
+  }
+  #logoutBtn:hover {
+    background: #a02a2a;
+  }
+
+  /* Sections */
+  section {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgba(0,0,0,0.75);
+    border-radius: 12px;
+    padding: 30px 40px;
+  }
+  section h1, section h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #ffa500;
+  }
+  section p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+  }
+
+  /* Contact form */
+  #contactForm label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #contactForm input, #contactForm textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  #contactForm button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+  }
+  #contactForm button:hover {
+    background: #cf711c;
+  }
+
+  /* Rental form */
+  #rentalForm label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #rentalForm select, #rentalForm input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+  }
+  #rentalForm button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+    width: 100%;
+  }
+  #rentalForm button:hover {
+    background: #cf711c;
+  }
+
+  /* Payment options */
+  .payment-options {
+    margin-top: 25px;
     text-align: center;
   }
-  h1 {
-    font-size: 3.6rem;
-    margin-bottom: 16px;
-    text-shadow: 0 2px 8px rgba(29,185,84,0.9);
-  }
-  h2 {
-    font-weight: 600;
-    margin-bottom: 24px;
-    font-size: 1.5rem;
-    max-width: 720px;
-    line-height: 1.4;
-  }
-  .btn-primary {
-    background-color: #1db954;
-    color: #000;
-    border: none;
-    border-radius: 30px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    padding: 16px 48px;
+  .payment-options button {
+    margin: 8px 10px;
+    padding: 12px 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-transform: uppercase;
-    box-shadow: 0 6px 12px rgba(29,185,84,0.5);
+    border: none;
+    color: black;
+    background: #ffa500;
+    transition: background 0.3s ease;
   }
-  .btn-primary:hover,
-  .btn-primary:focus {
-    background-color: #1ed760;
-    outline: none;
+  .payment-options button:hover {
+    background: #e68a00;
   }
-  section.features {
-    margin-top: 60px;
+
+  /* Rental history */
+  .rental-history {
+    margin-top: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .rental-item {
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+
+  /* Error messages */
+  .error {
+    color: #ff4c4c;
+    margin-top: 8px;
+    font-weight: bold;
+  }
+
+  /* Login/Register overlays */
+  #authOverlay {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.9);
     display: flex;
     justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
-    max-width: 1000px;
+    align-items: center;
+    z-index: 9999;
   }
-  .feature {
-    background: rgba(255 255 255 / 0.1);
-    border-radius: 16px;
-    padding: 24px 32px;
-    width: 280px;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-    transition: transform 0.3s ease;
+  #authBox {
+    background: #222;
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 320px;
+    box-sizing: border-box;
+    color: white;
   }
-  .feature:hover {
-    transform: translateY(-10px);
-  }
-  .feature h3 {
-    margin-top: 0;
-    margin-bottom: 12px;
-    color: #1db954;
-  }
-  .feature p {
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #ddd;
-  }
-  footer {
+  #authBox h2 {
     text-align: center;
-    padding: 16px 20px;
-    font-size: 0.9rem;
-    background: rgba(0,0,0,0.6);
-    user-select: none;
+    margin-top: 0;
+    color: #ffa500;
   }
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2.8rem;
-    }
-    section.features {
-      flex-direction: column;
-      align-items: center;
-    }
-    .feature {
-      width: 90%;
-    }
+  #authBox form {
+    display: flex;
+    flex-direction: column;
   }
+  #authBox label {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #authBox input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+  }
+  #authBox button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+  }
+  #authBox button:hover {
+    background: #cf711c;
+  }
+  #authBox .link-button {
+    margin-top: 15px;
+    background: none;
+    border: none;
+    color: #ffa500;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1rem;
+  }
+
+.car-card {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-radius: 15px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: transform 0.2s;
+}
+.car-card:hover {
+  transform: scale(1.03);
+}
+
 </style>
 </head>
 <body>
-<header>
-  Car Rental System
-</header>
-<main>
-  <h1>Rent Your Perfect Ride</h1>
-  <h2>Browse vehicles, book your rental, and drive away with ease. Experience hassle-free car rental with secure payments and a user-friendly platform.</h2>
-  <button class="btn-primary" onclick="location.href='car-rental-system.html'">Get Started</button>
+<!-- AUTH OVERLAY -->
+<div id="authOverlay">
+<div id="authBox">
+<!-- LOGIN FORM -->
+<div id="loginFormDiv">
+<h2>Login</h2>
+<form id="loginForm">
+<label for="loginUsername">Username:</label>
+<input autocomplete="username" id="loginUsername" required="" type="text"/>
+<label for="loginPassword">Password:</label>
+<input autocomplete="current-password" id="loginPassword" required="" type="password"/>
+<div class="error" id="loginError"></div>
+<button type="submit">Login</button>
+</form>
+<button class="link-button" id="toRegisterBtn">Don't have an account? Register</button>
+</div>
+<!-- REGISTER FORM -->
+<div id="registerFormDiv" style="display:none;">
+<h2>Register</h2>
+<form id="registerForm">
+<label for="regUsername">Username:</label>
+<input autocomplete="username" id="regUsername" required="" type="text"/>
+<label for="regPassword">Password:</label>
+<input autocomplete="new-password" id="regPassword" required="" type="password"/>
+<div class="error" id="registerError"></div>
+<button type="submit">Register</button>
+</form>
+<button class="link-button" id="toLoginBtn">Already have an account? Login</button>
+</div>
+</div>
+</div>
+<!-- MAIN SITE -->
+<nav style="display:none;">
+<div class="logo">CarRental</div>
+<ul>
+<li><a href="#homeSection" style="color:inherit; text-decoration:none;">Home</a></li>
+<li><a href="#availableCars" style="color:inherit; text-decoration:none;">Available Cars</a></li>
+<li><a href="#aboutSection" style="color:inherit; text-decoration:none;">About Us</a></li>
+<li><a href="#contactSection" style="color:inherit; text-decoration:none;">Contact Us</a></li>
+</ul>
+<button id="logoutBtn">Logout</button>
+</nav>
+<!-- HOME -->
+<section id="homeSection" style="display:block;">
+<h1>Welcome, <span id="userDisplay"></span>!</h1>
+<h2>Rent Your Favorite Car</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 30px;">
+</div>
+<form id="rentalForm">
+<label for="carSelect">Select Car:</label>
+<select id="carSelect" required="">
+<option value="">-- Select a Car --</option>
+<option value="Toyota">Toyota</option>
+<option value="Ford">Ford</option>
+<option value="Hyundai">Hyundai</option>
+<option value="Honda">Honda</option>
+<option value="BMW">BMW</option>
+</select>
+<label for="startDate">Start Date:</label>
+<input id="startDate" required="" type="date"/>
+<label for="endDate">End Date:</label>
+<input id="endDate" required="" type="date"/>
+<div class="error" id="rentalError"></div>
+<button type="submit">Proceed to Payment</button>
+</form>
+<div class="payment-options" id="paymentOptions" style="display:none;">
+<h3>Select Payment Method</h3>
+<button id="razorpayBtn">Razorpay</button>
+<button id="paypalBtn">PayPal</button>
+<button id="cardBtn">Credit/Debit Card</button>
+</div>
+<div id="cardDetailsForm" style="display:none; margin-top:20px; text-align: center;">
+<h3>Enter Card Details</h3>
+<label for="cardNumber">Card Number:</label><br/>
+<input id="cardNumber" placeholder="1234 5678 9012 3456" required="" type="text"/><br/><br/>
+<label for="expiryDate">Expiry Date:</label><br/>
+<input id="expiryDate" placeholder="MM/YY" required="" type="text"/><br/><br/>
+<label for="cvc">CVC:</label><br/>
+<input id="cvc" placeholder="123" required="" type="text"/><br/><br/>
+<button id="submitCardPayment" style="margin-top:10px;">Submit Payment</button>
+</div>
+<div id="paymentMessage" style="margin-top:20px; font-weight:bold; text-align:center;"></div>
+<div class="rental-history" id="rentalHistory" style="display:none;">
+<h3>Your Rental History</h3>
+<div id="historyList"></div>
+</div>
+</section>
+<section id="availableCars" style="display:block;">
+<h2>Available Vehicles</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 30px;">
+<div class="car-card" onclick="selectCar('Toyota')">
+<img alt="Toyota Camry" src="toyota camry.jpg" style="width:100%; border-radius: 10px;"/>
+<h3 style="margin: 10px 0 5px;">Toyota Camry</h3>
+<p>Price per day: ₹4000</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Ford')">
+<img alt="Ford EcoSport" src="ford ecosport.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Ford EcoSport</h3>
+<p>Price per day: ₹3500</p>
+<ul><li>Manual</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Hyundai')">
+<img alt="Hyundai i20" src="hyundai i20.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Hyundai i20</h3>
+<p>Price per day: ₹3000</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Honda')">
+<img alt="Honda City" src="honda city.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Honda City</h3>
+<p>Price per day: ₹3800</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('BMW')">
+<img alt="BMW X1" src="bmw x1.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>BMW X1</h3>
+<p>Price per day: ₹7500</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li><li>Luxury</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+</div>
+</section>
+<!-- ABOUT -->
+<section id="aboutSection" style="display:block;">
+<h2>About Us</h2>
+<p>
+    Welcome to CarRental, your trusted partner for hassle-free car rentals. We offer a wide range of vehicles from top brands including Toyota, Ford, Hyundai, Honda, and BMW. Whether you need a car for a day, a week, or longer, we provide flexible rental options to suit your needs. Our easy online booking system and reliable customer support ensure a smooth rental experience. Rent with us and drive with confidence!
+  </p>
+</section>
+<!-- CONTACT -->
+<section id="contactSection" style="display:block;">
+<h2>Contact Us</h2>
+<form id="contactForm">
+<label for="contactName">Name:</label>
+<input id="contactName" required="" type="text"/>
+<label for="contactEmail">Email:</label>
+<input id="contactEmail" required="" type="email"/>
+<label for="contactMessage">Message:</label>
+<textarea id="contactMessage" required="" rows="5"></textarea>
+<button type="submit">Send Message</button>
+</form>
+<div id="contactSuccess" style="margin-top:15px; color:#4BB543; font-weight:bold;"></div>
+</section>
+<script>
+  // User management in localStorage
+  function getUsers() {
+    return JSON.parse(localStorage.getItem('users') || '{}');
+  }
+  function saveUsers(users) {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+  function setCurrentUser(username) {
+    localStorage.setItem('currentUser', username);
+  }
+  function getCurrentUser() {
+    return localStorage.getItem('currentUser');
+  }
+  function clearCurrentUser() {
+    localStorage.removeItem('currentUser');
+  }
 
-  <section class="features" aria-label="Features">
-    <article class="feature" tabindex="0">
-      <h3>User Registration & Login</h3>
-      <p>Securely create and manage your account to keep track of your bookings and preferences.</p>
-    </article>
+  // DOM elements
+  const authOverlay = document.getElementById('authOverlay');
+  const loginFormDiv = document.getElementById('loginFormDiv');
+  const registerFormDiv = document.getElementById('registerFormDiv');
+  const toRegisterBtn = document.getElementById('toRegisterBtn');
+  const toLoginBtn = document.getElementById('toLoginBtn');
 
-    <article class="feature" tabindex="0">
-      <h3>Vehicle Catalog</h3>
-      <p>Explore a wide range of vehicles with detailed information and real-time availability.</p>
-    </article>
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
 
-    <article class="feature" tabindex="0">
-      <h3>Easy Booking & Payment</h3>
-      <p>Select your rental dates, reserve your vehicle, and choose from multiple payment options.</p>
-    </article>
+  const registerForm = document.getElementById('registerForm');
+  const registerError = document.getElementById('registerError');
 
-    <article class="feature" tabindex="0">
-      <h3>Rental History & Receipts</h3>
-      <p>Keep records of your rentals and download invoices anytime for your convenience.</p>
-    </article>
-  </section>
-</main>
-<footer>
-  &copy; 2024 Car Rental System. All rights reserved.
-</footer>
+  const nav = document.querySelector('nav');
+  const homeSection = document.getElementById('homeSection');
+  const aboutSection = document.getElementById('aboutSection');
+  const contactSection = document.getElementById('contactSection');
+  const userDisplay = document.getElementById('userDisplay');
+
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Show register form
+  toRegisterBtn.onclick = () => {
+    loginError.textContent = '';
+    loginForm.reset();
+    registerFormDiv.style.display = 'block';
+    loginFormDiv.style.display = 'none';
+  };
+  // Show login form
+  toLoginBtn.onclick = () => {
+    registerError.textContent = '';
+    registerForm.reset();
+    registerFormDiv.style.display = 'none';
+    loginFormDiv.style.display = 'block';
+  };
+
+  // Register
+  registerForm.onsubmit = (e) => {
+    e.preventDefault();
+    registerError.textContent = '';
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+
+    if (username.length < 3) {
+      registerError.textContent = 'Username must be at least 3 characters.';
+      return;
+    }
+    if (password.length < 4) {
+      registerError.textContent = 'Password must be at least 4 characters.';
+      return;
+    }
+
+    const users = getUsers();
+    if (users[username]) {
+      registerError.textContent = 'Username already exists.';
+      return;
+    }
+
+    users[username] = { password: password, rentals: [] };
+    saveUsers(users);
+    alert('Registration successful! You can login now.');
+    registerForm.reset();
+    registerFormDiv.style.display = 'none';
+    loginFormDiv.style.display = 'block';
+  };
+
+  // Login
+  loginForm.onsubmit = (e) => {
+    e.preventDefault();
+    loginError.textContent = '';
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    const users = getUsers();
+    if (!users[username] || users[username].password !== password) {
+      loginError.textContent = 'Invalid username or password.';
+      return;
+    }
+
+    setCurrentUser(username);
+    loginForm.reset();
+    showMainSite();
+  };
+
+  // Show main site after login
+  function showMainSite() {
+    authOverlay.style.display = 'none';
+    nav.style.display = 'flex';
+    homeSection.style.display = 'block';
+    aboutSection.style.display = 'block';
+    contactSection.style.display = 'block';
+    userDisplay.textContent = getCurrentUser();
+    resetRentalPage();
+    loadRentalHistory();
+  }
+
+  // On page load check if logged in
+  window.onload = () => {
+    if (getCurrentUser()) {
+      showMainSite();
+    }
+  };
+
+  // Logout
+  logoutBtn.onclick = () => {
+    clearCurrentUser();
+    authOverlay.style.display = 'flex';
+    nav.style.display = 'none';
+  };
+
+  // Rental form logic
+  const rentalForm = document.getElementById('rentalForm');
+  const rentalError = document.getElementById('rentalError');
+  const paymentOptions = document.getElementById('paymentOptions');
+  const paymentMessage = document.getElementById('paymentMessage');
+  const carSelect = document.getElementById('carSelect');
+  const startDateInput = document.getElementById('startDate');
+  const endDateInput = document.getElementById('endDate');
+
+  rentalForm.onsubmit = (e) => {
+    e.preventDefault();
+    rentalError.textContent = '';
+    paymentMessage.textContent = '';
+    paymentOptions.style.display = 'none';
+
+    const car = carSelect.value;
+    const start = startDateInput.value;
+    const end = endDateInput.value;
+
+    if (!car) {
+      rentalError.textContent = 'Please select a car.';
+      return;
+    }
+    if (!start || !end) {
+      rentalError.textContent = 'Please select start and end dates.';
+      return;
+    }
+    if (new Date(end) < new Date(start)) {
+      rentalError.textContent = 'End date cannot be before start date.';
+      return;
+    }
+    // Show payment options
+    paymentOptions.style.display = 'block';
+  };
+
+  // Payment buttons handlers
+  function processPayment(method) {
+    paymentMessage.style.color = 'white';
+    paymentMessage.textContent = `Processing payment with ${method}...`;
+    paymentOptions.style.display = 'none';
+
+    // Simulate payment delay
+    setTimeout(() => {
+      paymentMessage.style.color = '#4BB543';
+      paymentMessage.textContent = `Payment successful via ${method}! Your booking is confirmed.`;
+      saveRental();
+      resetRentalPage();
+      loadRentalHistory();
+    }, 1500);
+  }
+
+  document.getElementById('razorpayBtn').onclick = () => processPayment('Razorpay');
+  document.getElementById('paypalBtn').onclick = () => processPayment('PayPal');
+  document.getElementById('cardBtn').onclick = () => processPayment('Credit/Debit Card');
+
+  // Save rental history to user data in localStorage
+  function saveRental() {
+    const username = getCurrentUser();
+    if (!username) return;
+
+    const users = getUsers();
+    const user = users[username];
+    const rental = {
+      car: carSelect.value,
+      startDate: startDateInput.value,
+      endDate: endDateInput.value,
+      bookedOn: new Date().toLocaleString()
+    };
+    user.rentals.push(rental);
+    saveUsers(users);
+  }
+
+  // Load rental history for current user
+  function loadRentalHistory() {
+    const username = getCurrentUser();
+    if (!username) return;
+
+    const users = getUsers();
+    const rentals = users[username].rentals || [];
+    const historyDiv = document.getElementById('historyList');
+
+    if (rentals.length === 0) {
+      historyDiv.innerHTML = '<p>No rentals booked yet.</p>';
+      document.getElementById('rentalHistory').style.display = 'none';
+      return;
+    }
+    document.getElementById('rentalHistory').style.display = 'block';
+
+    historyDiv.innerHTML = rentals
+      .map(r => `<div class="rental-item">
+        <strong>Car:</strong> ${r.car}<br>
+        <strong>From:</strong> ${r.startDate}<br>
+        <strong>To:</strong> ${r.endDate}<br>
+        <em>Booked on: ${r.bookedOn}</em>
+      </div>`).join('');
+  }
+
+  // Reset rental form and hide payment and messages
+  function resetRentalPage() {
+    rentalForm.reset();
+    rentalError.textContent = '';
+    paymentOptions.style.display = 'none';
+    paymentMessage.textContent = '';
+  }
+
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  const contactSuccess = document.getElementById('contactSuccess');
+
+  contactForm.onsubmit = (e) => {
+    e.preventDefault();
+    contactSuccess.textContent = '';
+    // For demo: just show success, no actual sending
+    contactSuccess.textContent = 'Thank you for contacting us! We will get back to you shortly.';
+    contactForm.reset();
+  };
+
+  document.getElementById('cardBtn').onclick = () => {
+    document.getElementById('cardDetailsForm').style.display = 'block';
+  };
+
+  document.getElementById('submitCardPayment').onclick = () => {
+    const number = document.getElementById('cardNumber').value.trim();
+    const expiry = document.getElementById('expiryDate').value.trim();
+    const cvc = document.getElementById('cvc').value.trim();
+    if (!number || !expiry || !cvc) {
+      alert("Please fill all card details.");
+      return;
+    }
+    processPayment('Credit/Debit Card');
+    document.getElementById('cardDetailsForm').style.display = 'none';
+  };
+
+
+function selectCar(carName) {
+  document.getElementById('carSelect').value = carName;
+  alert(carName + " selected.");
+}
+
+
+function scrollToHome(button) {
+  const card = button.closest('.car-card');
+  const carName = card.querySelector('h3').textContent.trim().split(' ')[0];
+  selectCar(carName);
+  document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
 </body>
 </html>
+<!DOCTYPE html>
 
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Car Rental Service</title>
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body, html {
+    margin: 0; padding: 0; height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+    background-size: cover;
+    color: white;
+  }
+  body::before {
+    content: "";
+    position: fixed; top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.7);
+    z-index: -1;
+  }
+
+  /* Navbar */
+  nav {
+    background: rgba(0,0,0,0.85);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    font-weight: bold;
+  }
+  nav .logo {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #ffa500;
+  }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  nav ul li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  nav ul li:hover {
+    color: #e67e22;
+  }
+  #logoutBtn {
+    background: #cc3333;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background 0.3s ease;
+  }
+  #logoutBtn:hover {
+    background: #a02a2a;
+  }
+
+  /* Sections */
+  section {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgba(0,0,0,0.75);
+    border-radius: 12px;
+    padding: 30px 40px;
+  }
+  section h1, section h2 {
+    margin-top: 0;
+    text-align: center;
+    color: #ffa500;
+  }
+  section p {
+    line-height: 1.5;
+    font-size: 1.1rem;
+  }
+
+  /* Contact form */
+  #contactForm label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #contactForm input, #contactForm textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  #contactForm button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+  }
+  #contactForm button:hover {
+    background: #cf711c;
+  }
+
+  /* Rental form */
+  #rentalForm label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #rentalForm select, #rentalForm input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+  }
+  #rentalForm button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+    width: 100%;
+  }
+  #rentalForm button:hover {
+    background: #cf711c;
+  }
+
+  /* Payment options */
+  .payment-options {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .payment-options button {
+    margin: 8px 10px;
+    padding: 12px 22px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    color: black;
+    background: #ffa500;
+    transition: background 0.3s ease;
+  }
+  .payment-options button:hover {
+    background: #e68a00;
+  }
+
+  /* Rental history */
+  .rental-history {
+    margin-top: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .rental-item {
+    background: rgba(0,0,0,0.5);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+
+  /* Error messages */
+  .error {
+    color: #ff4c4c;
+    margin-top: 8px;
+    font-weight: bold;
+  }
+
+  /* Login/Register overlays */
+  #authOverlay {
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #authBox {
+    background: #222;
+    padding: 30px 40px;
+    border-radius: 15px;
+    width: 320px;
+    box-sizing: border-box;
+    color: white;
+  }
+  #authBox h2 {
+    text-align: center;
+    margin-top: 0;
+    color: #ffa500;
+  }
+  #authBox form {
+    display: flex;
+    flex-direction: column;
+  }
+  #authBox label {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+  #authBox input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 6px;
+    font-size: 1rem;
+  }
+  #authBox button {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: #e67e22;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: black;
+  }
+  #authBox button:hover {
+    background: #cf711c;
+  }
+  #authBox .link-button {
+    margin-top: 15px;
+    background: none;
+    border: none;
+    color: #ffa500;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 1rem;
+  }
+
+.car-card {
+  background: rgba(255, 255, 255, 0.9);
+  color: black;
+  border-radius: 15px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: transform 0.2s;
+}
+.car-card:hover {
+  transform: scale(1.03);
+}
+
+</style>
+</head>
+<body>
+<!-- AUTH OVERLAY -->
+<div id="authOverlay">
+<div id="authBox">
+<!-- LOGIN FORM -->
+<div id="loginFormDiv">
+<h2>Login</h2>
+<form id="loginForm">
+<label for="loginUsername">Username:</label>
+<input autocomplete="username" id="loginUsername" required="" type="text"/>
+<label for="loginPassword">Password:</label>
+<input autocomplete="current-password" id="loginPassword" required="" type="password"/>
+<div class="error" id="loginError"></div>
+<button type="submit">Login</button>
+</form>
+<button class="link-button" id="toRegisterBtn">Don't have an account? Register</button>
+</div>
+<!-- REGISTER FORM -->
+<div id="registerFormDiv" style="display:none;">
+<h2>Register</h2>
+<form id="registerForm">
+<label for="regUsername">Username:</label>
+<input autocomplete="username" id="regUsername" required="" type="text"/>
+<label for="regPassword">Password:</label>
+<input autocomplete="new-password" id="regPassword" required="" type="password"/>
+<div class="error" id="registerError"></div>
+<button type="submit">Register</button>
+</form>
+<button class="link-button" id="toLoginBtn">Already have an account? Login</button>
+</div>
+</div>
+</div>
+<!-- MAIN SITE -->
+<nav style="display:none;">
+<div class="logo">CarRental</div>
+<ul>
+<li><a href="#homeSection" style="color:inherit; text-decoration:none;">Home</a></li>
+<li><a href="#availableCars" style="color:inherit; text-decoration:none;">Available Cars</a></li>
+<li><a href="#aboutSection" style="color:inherit; text-decoration:none;">About Us</a></li>
+<li><a href="#contactSection" style="color:inherit; text-decoration:none;">Contact Us</a></li>
+</ul>
+<button id="logoutBtn">Logout</button>
+</nav>
+<!-- HOME -->
+<section id="homeSection" style="display:block;">
+<h1>Welcome, <span id="userDisplay"></span>!</h1>
+<h2>Rent Your Favorite Car</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 30px;">
+</div>
+<form id="rentalForm">
+<label for="carSelect">Select Car:</label>
+<select id="carSelect" required="">
+<option value="">-- Select a Car --</option>
+<option value="Toyota">Toyota</option>
+<option value="Ford">Ford</option>
+<option value="Hyundai">Hyundai</option>
+<option value="Honda">Honda</option>
+<option value="BMW">BMW</option>
+</select>
+<label for="startDate">Start Date:</label>
+<input id="startDate" required="" type="date"/>
+<label for="endDate">End Date:</label>
+<input id="endDate" required="" type="date"/>
+<div class="error" id="rentalError"></div>
+<button type="submit">Proceed to Payment</button>
+</form>
+<div class="payment-options" id="paymentOptions" style="display:none;">
+<h3>Select Payment Method</h3>
+<button id="razorpayBtn">Razorpay</button>
+<button id="paypalBtn">PayPal</button>
+<button id="cardBtn">Credit/Debit Card</button>
+</div>
+<div id="cardDetailsForm" style="display:none; margin-top:20px; text-align: center;">
+<h3>Enter Card Details</h3>
+<label for="cardNumber">Card Number:</label><br/>
+<input id="cardNumber" placeholder="1234 5678 9012 3456" required="" type="text"/><br/><br/>
+<label for="expiryDate">Expiry Date:</label><br/>
+<input id="expiryDate" placeholder="MM/YY" required="" type="text"/><br/><br/>
+<label for="cvc">CVC:</label><br/>
+<input id="cvc" placeholder="123" required="" type="text"/><br/><br/>
+<button id="submitCardPayment" style="margin-top:10px;">Submit Payment</button>
+</div>
+<div id="paymentMessage" style="margin-top:20px; font-weight:bold; text-align:center;"></div>
+<div class="rental-history" id="rentalHistory" style="display:none;">
+<h3>Your Rental History</h3>
+<div id="historyList"></div>
+</div>
+</section>
+<section id="availableCars" style="display:block;">
+<h2>Available Vehicles</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; margin-bottom: 30px;">
+<div class="car-card" onclick="selectCar('Toyota')">
+<img alt="Toyota Camry" src="toyota camry.jpg" style="width:100%; border-radius: 10px;"/>
+<h3 style="margin: 10px 0 5px;">Toyota Camry</h3>
+<p>Price per day: ₹4000</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Ford')">
+<img alt="Ford EcoSport" src="ford ecosport.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Ford EcoSport</h3>
+<p>Price per day: ₹3500</p>
+<ul><li>Manual</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Hyundai')">
+<img alt="Hyundai i20" src="hyundai i20.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Hyundai i20</h3>
+<p>Price per day: ₹3000</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('Honda')">
+<img alt="Honda City" src="honda city.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>Honda City</h3>
+<p>Price per day: ₹3800</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+<div class="car-card" onclick="selectCar('BMW')">
+<img alt="BMW X1" src="bmw x1.jpg" style="width:100%; border-radius: 10px;"/>
+<h3>BMW X1</h3>
+<p>Price per day: ₹7500</p>
+<ul><li>Auto</li><li>5 seats</li><li>AC</li><li>Luxury</li></ul>
+<button onclick="scrollToHome(this)" style="margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; background: #ffa500; font-weight: bold; cursor: pointer;">Book Now</button>
+</div>
+</div>
+</section>
+<!-- ABOUT -->
+<section id="aboutSection" style="display:block;">
+<h2>About Us</h2>
+<p>
+    Welcome to CarRental, your trusted partner for hassle-free car rentals. We offer a wide range of vehicles from top brands including Toyota, Ford, Hyundai, Honda, and BMW. Whether you need a car for a day, a week, or longer, we provide flexible rental options to suit your needs. Our easy online booking system and reliable customer support ensure a smooth rental experience. Rent with us and drive with confidence!
+  </p>
+</section>
+<!-- CONTACT -->
+<section id="contactSection" style="display:block;">
+<h2>Contact Us</h2>
+<form id="contactForm">
+<label for="contactName">Name:</label>
+<input id="contactName" required="" type="text"/>
+<label for="contactEmail">Email:</label>
+<input id="contactEmail" required="" type="email"/>
+<label for="contactMessage">Message:</label>
+<textarea id="contactMessage" required="" rows="5"></textarea>
+<button type="submit">Send Message</button>
+</form>
+<div id="contactSuccess" style="margin-top:15px; color:#4BB543; font-weight:bold;"></div>
+</section>
+<script>
+  // User management in localStorage
+  function getUsers() {
+    return JSON.parse(localStorage.getItem('users') || '{}');
+  }
+  function saveUsers(users) {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+  function setCurrentUser(username) {
+    localStorage.setItem('currentUser', username);
+  }
+  function getCurrentUser() {
+    return localStorage.getItem('currentUser');
+  }
+  function clearCurrentUser() {
+    localStorage.removeItem('currentUser');
+  }
+
+  // DOM elements
+  const authOverlay = document.getElementById('authOverlay');
+  const loginFormDiv = document.getElementById('loginFormDiv');
+  const registerFormDiv = document.getElementById('registerFormDiv');
+  const toRegisterBtn = document.getElementById('toRegisterBtn');
+  const toLoginBtn = document.getElementById('toLoginBtn');
+
+  const loginForm = document.getElementById('loginForm');
+  const loginError = document.getElementById('loginError');
+
+  const registerForm = document.getElementById('registerForm');
+  const registerError = document.getElementById('registerError');
+
+  const nav = document.querySelector('nav');
+  const homeSection = document.getElementById('homeSection');
+  const aboutSection = document.getElementById('aboutSection');
+  const contactSection = document.getElementById('contactSection');
+  const userDisplay = document.getElementById('userDisplay');
+
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Show register form
+  toRegisterBtn.onclick = () => {
+    loginError.textContent = '';
+    loginForm.reset();
+    registerFormDiv.style.display = 'block';
+    loginFormDiv.style.display = 'none';
+  };
+  // Show login form
+  toLoginBtn.onclick = () => {
+    registerError.textContent = '';
+    registerForm.reset();
+    registerFormDiv.style.display = 'none';
+    loginFormDiv.style.display = 'block';
+  };
+
+  // Register
+  registerForm.onsubmit = (e) => {
+    e.preventDefault();
+    registerError.textContent = '';
+    const username = document.getElementById('regUsername').value.trim();
+    const password = document.getElementById('regPassword').value.trim();
+
+    if (username.length < 3) {
+      registerError.textContent = 'Username must be at least 3 characters.';
+      return;
+    }
+    if (password.length < 4) {
+      registerError.textContent = 'Password must be at least 4 characters.';
+      return;
+    }
+
+    const users = getUsers();
+    if (users[username]) {
+      registerError.textContent = 'Username already exists.';
+      return;
+    }
+
+    users[username] = { password: password, rentals: [] };
+    saveUsers(users);
+    alert('Registration successful! You can login now.');
+    registerForm.reset();
+    registerFormDiv.style.display = 'none';
+    loginFormDiv.style.display = 'block';
+  };
+
+  // Login
+  loginForm.onsubmit = (e) => {
+    e.preventDefault();
+    loginError.textContent = '';
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value.trim();
+
+    const users = getUsers();
+    if (!users[username] || users[username].password !== password) {
+      loginError.textContent = 'Invalid username or password.';
+      return;
+    }
+
+    setCurrentUser(username);
+    loginForm.reset();
+    showMainSite();
+  };
+
+  // Show main site after login
+  function showMainSite() {
+    authOverlay.style.display = 'none';
+    nav.style.display = 'flex';
+    homeSection.style.display = 'block';
+    aboutSection.style.display = 'block';
+    contactSection.style.display = 'block';
+    userDisplay.textContent = getCurrentUser();
+    resetRentalPage();
+    loadRentalHistory();
+  }
+
+  // On page load check if logged in
+  window.onload = () => {
+    if (getCurrentUser()) {
+      showMainSite();
+    }
+  };
+
+  // Logout
+  logoutBtn.onclick = () => {
+    clearCurrentUser();
+    authOverlay.style.display = 'flex';
+    nav.style.display = 'none';
+  };
+
+  // Rental form logic
+  const rentalForm = document.getElementById('rentalForm');
+  const rentalError = document.getElementById('rentalError');
+  const paymentOptions = document.getElementById('paymentOptions');
+  const paymentMessage = document.getElementById('paymentMessage');
+  const carSelect = document.getElementById('carSelect');
+  const startDateInput = document.getElementById('startDate');
+  const endDateInput = document.getElementById('endDate');
+
+  rentalForm.onsubmit = (e) => {
+    e.preventDefault();
+    rentalError.textContent = '';
+    paymentMessage.textContent = '';
+    paymentOptions.style.display = 'none';
+
+    const car = carSelect.value;
+    const start = startDateInput.value;
+    const end = endDateInput.value;
+
+    if (!car) {
+      rentalError.textContent = 'Please select a car.';
+      return;
+    }
+    if (!start || !end) {
+      rentalError.textContent = 'Please select start and end dates.';
+      return;
+    }
+    if (new Date(end) < new Date(start)) {
+      rentalError.textContent = 'End date cannot be before start date.';
+      return;
+    }
+    // Show payment options
+    paymentOptions.style.display = 'block';
+  };
+
+  // Payment buttons handlers
+  function processPayment(method) {
+    paymentMessage.style.color = 'white';
+    paymentMessage.textContent = `Processing payment with ${method}...`;
+    paymentOptions.style.display = 'none';
+
+    // Simulate payment delay
+    setTimeout(() => {
+      paymentMessage.style.color = '#4BB543';
+      paymentMessage.textContent = `Payment successful via ${method}! Your booking is confirmed.`;
+      saveRental();
+      resetRentalPage();
+      loadRentalHistory();
+    }, 1500);
+  }
+
+  document.getElementById('razorpayBtn').onclick = () => processPayment('Razorpay');
+  document.getElementById('paypalBtn').onclick = () => processPayment('PayPal');
+  document.getElementById('cardBtn').onclick = () => processPayment('Credit/Debit Card');
+
+  // Save rental history to user data in localStorage
+  function saveRental() {
+    const username = getCurrentUser();
+    if (!username) return;
+
+    const users = getUsers();
+    const user = users[username];
+    const rental = {
+      car: carSelect.value,
+      startDate: startDateInput.value,
+      endDate: endDateInput.value,
+      bookedOn: new Date().toLocaleString()
+    };
+    user.rentals.push(rental);
+    saveUsers(users);
+  }
+
+  // Load rental history for current user
+  function loadRentalHistory() {
+    const username = getCurrentUser();
+    if (!username) return;
+
+    const users = getUsers();
+    const rentals = users[username].rentals || [];
+    const historyDiv = document.getElementById('historyList');
+
+    if (rentals.length === 0) {
+      historyDiv.innerHTML = '<p>No rentals booked yet.</p>';
+      document.getElementById('rentalHistory').style.display = 'none';
+      return;
+    }
+    document.getElementById('rentalHistory').style.display = 'block';
+
+    historyDiv.innerHTML = rentals
+      .map(r => `<div class="rental-item">
+        <strong>Car:</strong> ${r.car}<br>
+        <strong>From:</strong> ${r.startDate}<br>
+        <strong>To:</strong> ${r.endDate}<br>
+        <em>Booked on: ${r.bookedOn}</em>
+      </div>`).join('');
+  }
+
+  // Reset rental form and hide payment and messages
+  function resetRentalPage() {
+    rentalForm.reset();
+    rentalError.textContent = '';
+    paymentOptions.style.display = 'none';
+    paymentMessage.textContent = '';
+  }
+
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  const contactSuccess = document.getElementById('contactSuccess');
+
+  contactForm.onsubmit = (e) => {
+    e.preventDefault();
+    contactSuccess.textContent = '';
+    // For demo: just show success, no actual sending
+    contactSuccess.textContent = 'Thank you for contacting us! We will get back to you shortly.';
+    contactForm.reset();
+  };
+
+  document.getElementById('cardBtn').onclick = () => {
+    document.getElementById('cardDetailsForm').style.display = 'block';
+  };
+
+  document.getElementById('submitCardPayment').onclick = () => {
+    const number = document.getElementById('cardNumber').value.trim();
+    const expiry = document.getElementById('expiryDate').value.trim();
+    const cvc = document.getElementById('cvc').value.trim();
+    if (!number || !expiry || !cvc) {
+      alert("Please fill all card details.");
+      return;
+    }
+    processPayment('Credit/Debit Card');
+    document.getElementById('cardDetailsForm').style.display = 'none';
+  };
+
+
+function selectCar(carName) {
+  document.getElementById('carSelect').value = carName;
+  alert(carName + " selected.");
+}
+
+
+function scrollToHome(button) {
+  const card = button.closest('.car-card');
+  const carName = card.querySelector('h3').textContent.trim().split(' ')[0];
+  selectCar(carName);
+  document.getElementById('homeSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
+</body>
+</html>
