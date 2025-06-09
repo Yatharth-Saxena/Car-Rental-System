@@ -2,6 +2,30 @@
 
 A Car Rental System that allows users to browse available vehicles, make reservations, calculate rental costs, and process payments. It also provides rental agencies with tools for inventory management, booking history, and financial reporting.
 
+## How to Use
+
+You can run this project in two ways:
+
+### ✅ Recommended: View Online via GitHub Pages
+
+No setup required. Click the link below to open the fully working project in your browser (all images will load correctly):
+
+🔗 (https://yatharth-saxena.github.io/Car-Rental-System/)
+
+---
+
+### 🖥️ Run Locally (Offline)
+
+1. Download the entire repository as a ZIP file.
+2. Extract it on your system.
+3. Make sure the `images/` folder is present in the extracted directory.
+4. Open the `index.html` file in your browser.
+5. All images and content should now load correctly.
+
+> ⚠️ If you remove or rename the image files/folder, the layout may break or images may not load properly.
+
+---
+
 ## Features
 
 - *User Registration & Login*: Secure authentication for customers to manage their bookings.
@@ -18,6 +42,4 @@ A Car Rental System that allows users to browse available vehicles, make reserva
 - Backend: Java
 - Database: MySQL / MongoDB
 - Payment Integration: PayPal
-- Authentication: JWT / OAuth / Firebase Auth 
-
-                         
+- Authentication: JWT / OAuth / Firebase Auth
